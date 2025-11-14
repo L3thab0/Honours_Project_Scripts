@@ -19,3 +19,4 @@ module load fastqc-0.11.7
 fastqc xab/*.qc.fastq.gz
 
 #fastqc will run and the output files will be created in the above specified directory (unless otherwise specified)
+#the report should be transferred from the directory on the server to the directory on the personal computer where it can then be viewed in the browser

@@ -1,0 +1,24 @@
+#specify these parameters to run the job on the server
+#!/bin/bash
+#PBS -l nodes=1:ppn=14
+#PBS -l walltime=30:00:00
+#PBS -q normal
+#PBS -o stdout.multiqc
+#PBS -e stdout.multiqc
+#PBS -k oe
+#PBS -m abe
+#PBS -M email address
+
+#change the directory to the current working directory
+cd $PBS_O_WORKDIR
+
+#load the module to be used and run the associated source code
+module load multiqc
+source /apps/anaconda3-2025.06-0/etc/profile.d/conda.sh
+
+#run multiqc by specifying which files it should analyse and the directory the files are found in
+multiqc xab/*.fastq.gz
+
+#multiqc runs and a single html file for all the samples is generated
+#the report should be transferred from the directory on the server to the directory on the personal computer where it can then be viewed in the browser
+ 

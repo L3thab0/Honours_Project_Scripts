@@ -1,0 +1,23 @@
+#specify these parameters to run a job on the server
+#!/bin/bash
+#PBS -l nodes=1:ppn=24
+#PBS -l walltime=30:00:00
+#PBS -q normal
+#PBS -o stdout.fastp
+#PBS -e stderr.fastp
+#PBS -k oe
+#PBS -m abe
+#PBS -M email address
+
+#change the directory to the current working directory
+cd $PBS_O_WORKDIR
+
+#load the tool to be used
+module load fastp
+
+#use a for loop to run fastp
+for r1 in xab/*_1.fastq.gz #for r1, a random variable, in the specified directory and for all files with the specified file extension
+do
+r2=${r1/_1/_2} #swap out 1 for 2 to get r2 to get the corresponding reverse reads
+fastp --in1 $r1 --in2 $r2 --out1 ${r1%%.fastq.gz}.qc.fastq.gz --out2 ${r2%%.fastq.gz}.qc.fastq.gz #run fastp with the specified inputs and output the files as specified, keeping the file extension as specified
+done

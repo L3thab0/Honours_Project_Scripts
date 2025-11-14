@@ -1,0 +1,21 @@
+#parameters to be specified to run a job on the server
+#!/bin/bash
+#PBS -l nodes=1:ppn=24
+#PBS -l walltime=30:00:00
+#PBS -q normal
+#PBS -o stdout_q.fastqc
+#PBS -e stderr_q.fastqc
+#PBS -k oe
+#PBS -m abe
+#PBS -M email address
+
+#change the directory to the current working directory 
+cd $PBS_O_WORKDIR
+
+#load the tool to be used
+module load fastqc-0.11.7
+
+#run fastqc by specifying the fastq files, with the raw reads, to be processed including the specific directory the files can be found in
+fastqc xab/*.qc.fastq.gz
+
+#fastqc will run and the output files will be created in the above specified directory (unless otherwise specified)
